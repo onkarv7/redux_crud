@@ -4,7 +4,9 @@ import { getData } from "../redux/slices/userSlice";
 import User from "./User";
 
 const Home = () => {
-  const { users, loading, error } = useSelector((state) => state.app);
+  const { users, loading, error, searchData } = useSelector(
+    (state) => state.app
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,7 +34,18 @@ const Home = () => {
               </tr>
             </thead>
             <tbody>
-              {users && users.map((user) => <User key={user.id} user={user} />)}
+              {users &&
+                users
+                  .filter((ele) => {
+                    if (searchData.length === 0) {
+                      return ele; // Return all users if searchData is empty
+                    } else {
+                      return ele.name
+                        .toLowerCase()
+                        .includes(searchData.toLowerCase());
+                    }
+                  })
+                  .map((user) => <User key={user.id} user={user} />)}
             </tbody>
           </table>
         </div>

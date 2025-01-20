@@ -97,8 +97,14 @@ const userSlice = createSlice({
     users: [], // Storing user posts
     loading: false, // Loading state
     error: null, // Error state
+    searchData: [],
   },
-  reducers: {},
+  reducers: {
+    searchUser: (state, action) => {
+      console.log("search payload", action.payload);
+      state.searchData = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // Handling postData
@@ -154,3 +160,4 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
+export const { searchUser } = userSlice.actions;
