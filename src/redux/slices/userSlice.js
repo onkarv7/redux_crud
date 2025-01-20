@@ -67,6 +67,30 @@ export const deleteData = createAsyncThunk(
   }
 );
 
+export const updateData = createAsyncThunk(
+  "updateData",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await fetch(
+        `https://67880f16c4a42c91610931c4.mockapi.io/users/${data.id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to post data");
+      }
+      const result = await response.json();
+      console.log(result);
+      return result; // Returning the result to the Redux store
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: "users",
   initialState: {
@@ -109,6 +133,22 @@ const userSlice = createSlice({
 
         state.loading = false;
         state.users = state.users.filter((user) => user.id !== id);
+      })
+      // Handling postData
+      .addCase(updateData.pending, (state) => {
+        state.loading = true;
+        state.error = null; // Clear previous errors
+      })
+      .addCase(updateData.fulfilled, (state, action) => {
+        state.loading = false;
+        const updatedUser = action.payload;
+        state.users = state.users.map((user) =>
+          user.id === updatedUser.id ? updatedUser : user
+        ); // Update the specific user in the state
+      })
+      .addCase(updateData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload; // Store error message
       });
   },
 });

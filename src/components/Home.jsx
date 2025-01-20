@@ -9,7 +9,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getData());
-  }, [dispatch]);
+  }, []);
 
   console.log("users Home", users);
 
@@ -28,7 +28,7 @@ const Home = () => {
                 <th className="text-left p-3 px-5">Name</th>
                 <th className="text-left p-3 px-5">Age</th>
                 <th className="text-left p-3 px-5">City</th>
-                <th className="text-left p-3 px-5">Actions</th>
+                <th className="text-right p-3 px-5">Actions</th>
               </tr>
             </thead>
             <tbody>

@@ -1,12 +1,18 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteData } from "../redux/slices/userSlice";
+import { useNavigate } from "react-router";
 
 const User = ({ user }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleUserDelete = (id) => {
     console.log("clicked", id);
     dispatch(deleteData(id));
+  };
+
+  const handleEditRedirect = (id) => {
+    navigate(`/edit/${id}`);
   };
   return (
     <tr className="border-b hover:bg-orange-100 bg-gray-100">
@@ -23,6 +29,9 @@ const User = ({ user }) => {
         <button
           type="button"
           className="mr-3 text-sm bg-orange-500 hover:bg-orange-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+          onClick={() => {
+            handleEditRedirect(user.id);
+          }}
         >
           Edit
         </button>

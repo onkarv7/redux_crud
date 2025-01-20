@@ -24,7 +24,7 @@ const Form = () => {
   console.log("posts", posts);
   return (
     <div className="my-5">
-      <div className="container mx-auto shadow-md dark:shadow-white py-4 px-6 sm:px-10 bg-white dark:bg-gray-800 border-emerald-500 rounded-md">
+      <div className="container mx-auto shadow-md dark:shadow-white py-4 px-6 sm:px-10 border-emerald-500 rounded-md">
         <a
           href="/"
           className="px-4 py-2 bg-red-500 rounded-md text-white text-sm sm:text-lg shadow-md"
